@@ -111,23 +111,24 @@ export default function ResumeScorer() {
     navigate("/resume-builder/new", { state: { parsedData } });
   };
 
-  const getScoreColor = (score) => {
-    if (score >= 80) return "text-emerald-400";
-    if (score >= 60) return "text-amber-400";
-    return "text-red-400";
-  };
+const getScoreColor = (score) => {
+  if (score >= 80) return "text-emerald-500";
+  if (score >= 60) return "text-amber-500";
+  return "text-rose-500";
+};
 
-  const getScoreRingColor = (score) => {
-    if (score >= 80) return "#34d399";
-    if (score >= 60) return "#fbbf24";
-    return "#f87171";
-  };
+const getScoreRingColor = (score) => {
+  if (score >= 80) return "#10b981";   // emerald-500
+  if (score >= 60) return "#f59e0b";   // amber-500
+  return "#f43f5e";                    // rose-500
+};
 
-  const getScoreBg = (score) => {
-    if (score >= 80) return "rgba(52, 211, 153, 0.1)";
-    if (score >= 60) return "rgba(251, 191, 36, 0.1)";
-    return "rgba(248, 113, 113, 0.1)";
-  };
+const getScoreBg = (score) => {
+  if (score >= 80) return "rgba(16, 185, 129, 0.12)";
+  if (score >= 60) return "rgba(245, 158, 11, 0.12)";
+  return "rgba(244, 63, 94, 0.12)";
+};
+
   // Score result view
   if (result) {
     return (
@@ -143,7 +144,7 @@ export default function ResumeScorer() {
 
           {/* Overall Score */}
           <div
-            className="glass-card p-8 mb-8 text-center animate-fade-in-up"
+            className="glass-card bg-[#fcf8f3] p-8 mb-8 text-center animate-fade-in-up"
             style={{ animationDelay: "0.1s" }}
           >
             <div className="relative w-40 h-40 mx-auto mb-6">
@@ -166,7 +167,7 @@ export default function ResumeScorer() {
                   strokeLinecap="round"
                   strokeDasharray={`${2 * Math.PI * 45}`}
                   strokeDashoffset={`${2 * Math.PI * 45 * (1 - result.overall_score / 100)}`}
-                  className="transition-all duration-1000 ease-out"
+                  className="transition-all duration-1000 ease-out "
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -179,9 +180,9 @@ export default function ResumeScorer() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="flex items-center justify-center gap-2 mb-2 ">
               {result.ats_friendly ? (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
+                <span className="inline-flex items-center  gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
                   <Shield size={14} /> ATS Friendly
                 </span>
               ) : (
@@ -193,11 +194,11 @@ export default function ResumeScorer() {
           </div>
 
           {/* Category Scores */}
-          <div className="space-y-3 mb-8">
+          <div className="space-y-3 mb-8 ">
             {result.categories?.map((cat, i) => (
               <div
                 key={i}
-                className="glass-card overflow-hidden animate-fade-in-up dark:text-white"
+                className="glass-card overflow-hidden animate-fade-in-up bg-[#f5efe6] dark:text-white"
                 style={{ animationDelay: `${0.2 + i * 0.05}s` }}
               >
                 <button
@@ -277,7 +278,7 @@ export default function ResumeScorer() {
           {/* Strengths & Weaknesses */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div
-              className="glass-card p-6 animate-fade-in-up"
+              className="glass-card p-6 animate-fade-in-up bg-[#f4eee6]"
               style={{ animationDelay: "0.5s" }}
             >
               <h3 className="flex items-center gap-2 text-lg font-bold text-emerald-400 mb-4">
@@ -300,7 +301,7 @@ export default function ResumeScorer() {
             </div>
 
             <div
-              className="glass-card p-6 animate-fade-in-up"
+              className="glass-card p-6 animate-fade-in-up bg-[#f4eee6]"
               style={{ animationDelay: "0.55s" }}
             >
               <h3 className="flex items-center gap-2 text-lg font-bold text-red-400 mb-4">
@@ -326,7 +327,7 @@ export default function ResumeScorer() {
           {/* Recommendations */}
           {result.recommendations?.length > 0 && (
             <div
-              className="glass-card p-6 mb-8 animate-fade-in-up"
+              className="glass-card p-6 mb-8 animate-fade-in-up bg-[#f4eee6]"
               style={{ animationDelay: "0.6s" }}
             >
               <h3 className="flex items-center gap-2 text-lg font-bold text-primary-400 mb-4">
