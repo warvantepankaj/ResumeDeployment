@@ -21,10 +21,8 @@ async def score_uploaded_resume(
         contents = await file.read()
         text = extract_text_from_file(contents, file.filename)
 
-        print("✅ Extracted text length:", len(text))  # debug
 
         parsed = await parse_resume_text(text)
-        print("✅ Parsed data:", parsed)  # debug
 
         resume_data = ResumeData(**parsed)
 
@@ -36,7 +34,6 @@ async def score_uploaded_resume(
         return result
 
     except Exception as e:
-        print("🔥 ERROR:", str(e))
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -71,7 +68,6 @@ async def score_saved_resume(
 async def parse_resume_for_scoring(
     file: UploadFile = File(...),
 ):
-    print("Scoring.....")
     """Parse a resume file and return structured data (for autofill after scoring)."""
     try:
         contents = await file.read()
