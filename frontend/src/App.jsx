@@ -1,30 +1,51 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
-// Pages
 import Home from "./builder/app/Home.jsx";
 import Dashboard from "./builder/app/Dashboard";
-import ResumeBuilder from "./builder/components/ResumeBuilder/ResumeBuilder";
 import ResumeScorer from "./score/pages/ResumeScorer";
 import Navbar from "./builder/app/Navbar.jsx";
+import ProtectedRoute from "./ProtectedRoutes/ProtectedRoute.jsx";
+import ResumeBuilderPage from "./builder/app/ResumeBuilder/ResumeBuilderPage.jsx";
 
 const Layout = () => {
   return (
     <>
-      <Navbar />   {/* ✅ visible on ALL pages */}
-      <Outlet />   {/* pages render here */}
+      <Navbar />
+      <Outlet />
     </>
   );
 };
 
-// ✅ Define routes here
 export const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/resume-builder/:id", element: <ResumeBuilder /> },
-      { path: "/dashboard", element: <Dashboard /> },
-      { path: "/score", element: <ResumeScorer /> }
-    ]
-  }
+
+      {
+        path: "/resume-builder/:id",
+        element: (
+          <ProtectedRoute>
+            <ResumeBuilderPage/>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/score",
+        element: (
+          <ProtectedRoute>
+            <ResumeScorer />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
 ]);
