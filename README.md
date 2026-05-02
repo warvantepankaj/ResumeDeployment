@@ -1,6 +1,6 @@
 🚀 ResumeAI
 
-ResumeAI is a full-stack web application that helps users **build, manage, and score resumes** with an interactive UI and smart backend processing.
+ResumeAI is a full-stack web application that helps users build, manage, and score resumes with an interactive UI and smart backend processing.
 
 🛠 Tech Stack
 
