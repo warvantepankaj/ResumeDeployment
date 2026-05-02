@@ -107,20 +107,3 @@ MONGODB_URL=your_mongodb_connection_string
 CLERK_SECRET_KEY=your_clerk_secret_key
 ```
 
-⚠️ Do not commit `.env` file to GitHub.
-
----
-
-✨ Features
-Resume Builder
-Resume Scoring System
-User Authentication (Clerk)
-Dashboard for managing resumes
-Responsive UI with modern design
-
----
-
-🚧 Future Improvements
-
-AI-based resume suggestions
-PDF export
