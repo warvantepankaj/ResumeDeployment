@@ -1,11 +1,11 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
-import Home from "./builder/app/Home.jsx";
-import Dashboard from "./builder/app/Dashboard";
+import Home from "./builder/pages/Home.jsx";
+import Dashboard from "./builder/pages/Dashboard.jsx";
 import ResumeScorer from "./score/pages/ResumeScorer";
-import Navbar from "./builder/app/Navbar.jsx";
+import Navbar from "./builder/pages/Navbar.jsx";
 import ProtectedRoute from "./ProtectedRoutes/ProtectedRoute.jsx";
-import ResumeBuilderPage from "./builder/app/ResumeBuilder/ResumeBuilderPage.jsx";
+import ResumeBuilderPage from "./builder/pages/ResumeBuilderPage.jsx";
 
 const Layout = () => {
   return (

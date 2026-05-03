@@ -8,7 +8,6 @@ import { RxCross2 } from "react-icons/rx";
 
 
 import {
-  BarChart3,
   Loader2,
   CheckCircle2,
   XCircle,
@@ -144,7 +143,7 @@ const getScoreBg = (score) => {
 
           {/* Overall Score */}
           <div
-            className="glass-card bg-[#fcf8f3] p-8 mb-8 text-center animate-fade-in-up"
+            className="glass-card bg-[#f4eee6] p-8 mb-8 text-center animate-fade-in-up"
             style={{ animationDelay: "0.1s" }}
           >
             <div className="relative w-40 h-40 mx-auto mb-6">
@@ -180,7 +179,7 @@ const getScoreBg = (score) => {
               </div>
             </div>
 
-            <div className="flex items-center justify-center gap-2 mb-2 ">
+            <div className="flex items-center justify-center gap-2 mb-2">
               {result.ats_friendly ? (
                 <span className="inline-flex items-center  gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm">
                   <Shield size={14} /> ATS Friendly
@@ -455,6 +454,7 @@ const getScoreBg = (score) => {
             </div>
           </div>
         </div>
+
         {openModal && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm "
@@ -462,7 +462,7 @@ const getScoreBg = (score) => {
           >
             <div
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-2xl p-10 rounded-2xl bg-[#faf5ee] dark:bg-gray-900 shadow-2xl animate-fade-in-up"
+              className="w-full max-w-xl px-10 py-7 rounded-2xl bg-[#faf5ee] dark:bg-gray-900 shadow-2xl animate-fade-in-up"
             >
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold dark:text-white">
