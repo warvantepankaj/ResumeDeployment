@@ -17,7 +17,7 @@ export function ClassicResume({ resumeData = {} }) {
     certificate = [],
   } = resumeData;
 
-  const fullName = `${personalInfo.firstName || ""} ${personalInfo.middleName || ""} ${personalInfo.lastName || ""}`;
+  const fullName = `${personalInfo.firstName || ""} ${personalInfo.middleName || ""} ${personalInfo.lastName || ""}`.trim();
 
   const formatDate = (date) => {
     if (!date) return "";
@@ -35,7 +35,7 @@ export function ClassicResume({ resumeData = {} }) {
           {/* HEADER */}
           <div className="text-center mb-2">
             <h1 className="text-3xl font-semibold tracking-wide">
-              {fullName || "FIRST LAST"}
+              {fullName.toUpperCase()  || "YOUR NAME"}
             </h1>
 
             <p className="text-sm mt-1">
@@ -47,22 +47,22 @@ export function ClassicResume({ resumeData = {} }) {
             </p>
 
             <div className="flex justify-center gap-3 text-xs mt-1 flex-wrap">
-              <div className="flex gap-1 items-center">
+             {personalInfo.phone && ( <div className="flex gap-1 items-center">
                 <FaPhone size={8} />
                 <span>{personalInfo.phone}</span>
-              </div>
-              <div className="flex gap-1 items-center">
+              </div>)}
+              { personalInfo.email && (<div className="flex gap-1 items-center">
                 <MdEmail size={11} />
                 <span>{personalInfo.email}</span>
-              </div>
-              <div className="flex gap-1 items-center">
+              </div>)}
+              {personalInfo.linkedin && (<div className="flex gap-1 items-center">
                 <FaLinkedin size={10} />
                 <span>{personalInfo.linkedin}</span>
-              </div>
-              <div className="flex gap-1 items-center">
+              </div>)}
+              {personalInfo.website && (<div className="flex gap-1 items-center">
                 <IoLogoGithub size={10} />
                 <span>{personalInfo.website}</span>
-              </div>
+              </div>)}
               {/* <div className="flex gap-1 items-center"><FaPhone size={9}/><span>{personalInfo.phone}</span></div>          */}
             </div>
           </div>
