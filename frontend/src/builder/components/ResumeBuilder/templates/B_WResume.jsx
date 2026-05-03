@@ -20,11 +20,8 @@ import { CiLink } from "react-icons/ci";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-export function B_WResume({
-  resumeData = {},
-  compact = false,
-  length = { length },
-}) {
+export function B_WResume({ resumeData = {}}) {
+
   const {
     personalInfo = {},
     professionalSummary = "",
@@ -32,13 +29,13 @@ export function B_WResume({
     projects = [],
     education = [],
     skills = { technical: [], soft: [], languages: [] },
-    languages = [],
+   
     certificate = [],
     achievements = [],
   } = resumeData;
+
   const [isExporting, setIsExporting] = useState(null);
 
-  console.log(resumeData.achievements);
 
   const fullName =
     `${personalInfo.firstName || ""} ${personalInfo.middleName || ""} ${personalInfo.lastName || ""}`.trim();
