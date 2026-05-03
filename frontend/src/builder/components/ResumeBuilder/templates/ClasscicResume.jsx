@@ -39,7 +39,11 @@ export function ClassicResume({ resumeData = {} }) {
             </h1>
 
             <p className="text-sm mt-1">
-              {personalInfo.address || "123 Street Name, Town, State 12345"}
+              {(personalInfo?.city || personalInfo?.state) && (
+              <div className="text-[15px] font-semibold">
+                {[personalInfo?.city, personalInfo?.state].filter(Boolean).join(", ")}
+              </div>
+            )}
             </p>
 
             <div className="flex justify-center gap-3 text-xs mt-1 flex-wrap">
