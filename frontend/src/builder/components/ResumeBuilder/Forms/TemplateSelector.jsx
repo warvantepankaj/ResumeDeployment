@@ -17,7 +17,7 @@ export function TemplateSelector({ selectedTemplate = "", onSelect = () => {}, r
       id: "classic",
       name: "Classic Traditional",
       image:"",
-      description: "Traditional format preferred by conservative industries",
+      description: "Traditional format preferred by industries",
       preview: "Timeless black and white design with clear sections",
     },
     {
@@ -46,7 +46,7 @@ export function TemplateSelector({ selectedTemplate = "", onSelect = () => {}, r
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {TEMPLATES.map((template) => {
-          const isSelected = selectedTemplate === template.id
+          const isSelected = selectedTemplate === template.id 
           return (
             <Card
               key={template.id}
@@ -71,9 +71,9 @@ export function TemplateSelector({ selectedTemplate = "", onSelect = () => {}, r
                 </div>
               </CardHeader>
               <CardContent >
-                <div className="bg-muted/30 dark:bg-muted/50 rounded-lg p-4 min-h-[120px] flex items-center justify-center">
+                <div className="bg-muted/30 dark:bg-muted/50 rounded-lg p-2 min-h-[120px] flex items-center justify-center">
                   <div className="text-center space-y-2">
-                     <div className="w-16 h-20 bg-gradient-to-b from-primary/20 to-primary/10 rounded mx-auto"></div>
+                     <div className="w-14 h-14 bg-gradient-to-b from-primary/20 to-primary/10 rounded mx-auto"></div>
                     <p className="text-xs text-muted-foreground dark:text-muted-foreground">{template.preview}</p>
                   </div>
                 </div>

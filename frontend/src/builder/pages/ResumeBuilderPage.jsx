@@ -287,7 +287,7 @@ export default function ResumeBuilderPage() {
       case "template":
         return (
           <TemplateSelector
-            selectedTemplate={resumeData?.selectedTemplate}
+            selectedTemplate={resumeData?.selectedTemplate || "modern"}
             onSelect={(template) =>
               updateResumeData("selectedTemplate", template)
             }
