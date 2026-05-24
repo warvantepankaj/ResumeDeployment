@@ -34,7 +34,7 @@ const DeleteResumeModal = ({ isOpen, onClose, id, resumeTitle, onDelete }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm py-4 px-10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/5 backdrop-blur-sm py-4 px-10">
       <div className="relative bg-[#faf7f2] dark:bg-gray-900 w-full max-w-[35%] rounded-2xl shadow-2xl p-8">
         {/* Close Button */}
         <button

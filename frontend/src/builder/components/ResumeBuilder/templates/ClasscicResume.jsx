@@ -29,7 +29,7 @@ export function ClassicResume({ resumeData = {} }) {
   };
 
   return (
-    <Card className="bg-[#faf8f6] shadow-2xl border-gray-300 dark:border-gray-700 dark:bg-gray-800  w-auto h-auto ">
+    <Card className="bg-[#faf8f6] shadow-2xl border-gray-300 dark:border-gray-700 dark:bg-gray-300  w-auto h-auto ">
       <CardContent>
         <div className=" text-black min-h-[900px]  p-4 font-[ui-serif] w-auto leading-tight dark:bg-gray-300">
           {/* HEADER */}
