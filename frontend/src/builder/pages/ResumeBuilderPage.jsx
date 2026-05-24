@@ -9,9 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/builder/components/ui/Card.jsx";
-import {  Eye, CheckCircle, EyeOff } from "lucide-react";
+import { Eye, CheckCircle, EyeOff } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 
 import { PersonalInfoForm } from "@/builder/components/ResumeBuilder/Forms/PersonalInfoForm.jsx";
 import { ProfessionalSummaryForm } from "@/builder/components/ResumeBuilder/Forms/ProfessionalSummaryForm.jsx";
@@ -79,12 +80,13 @@ const FORM_STEPS = [
 ];
 
 export default function ResumeBuilderPage() {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [showPreview, setShowPreview] = useState(false);
+  const [currentStep, setCurrentStep] = useState();
   const [dataTransferred, setDataTransferred] = useState(false);
   const { id: resumeId } = useParams();
   const navigate = useNavigate();
-  console.log(resumeId, "resumeIdresumeId");
+  // const { toast } = useToast();
 
   const [resumeData, setResumeData] = useState({
     personalInfo: {
@@ -123,6 +125,8 @@ export default function ResumeBuilderPage() {
         );
 
         setResumeData(res.data.data); // backend structure
+        setCurrentStep(res.data.currentStep);
+        setShowPreview(res.data.showPreview);
       } catch (err) {
         console.error(err);
       }
@@ -130,12 +134,6 @@ export default function ResumeBuilderPage() {
 
     fetchResume();
   }, [resumeId]);
-
-  // Initialize currentStep from localStorage
-  const [currentStep, setCurrentStep] = useState(() => {
-    const savedStep = localStorage.getItem("currentStep");
-    return savedStep ? Number(savedStep) : 0;
-  });
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -174,6 +172,13 @@ export default function ResumeBuilderPage() {
     }));
   };
 
+  // useEffect(() => {
+  //   if (resumeData) {
+  //     setCurrentStep(resumeData.currentStep ?? 0);
+  //     setShowPreview(resumeData.showPreview ?? false);
+  //   }
+  // }, []);
+
   const nextStep = () => {
     if (currentStep < FORM_STEPS.length - 1) setCurrentStep(currentStep + 1);
     // if (currentStep == 8) setShowPreview(false);
@@ -189,6 +194,8 @@ export default function ResumeBuilderPage() {
         data: resumeData,
         status: "completed",
         progress: 100,
+        currentStep: currentStep,
+        showPreview: showPreview,
       });
 
       Swal.fire({
@@ -218,16 +225,16 @@ export default function ResumeBuilderPage() {
     },
     {
       id: "creative",
-      component: <B_WResume resumeData={resumeData}  />,
+      component: <B_WResume resumeData={resumeData} />,
     },
     {
       id: "minimal",
-      component: <PurpleResume resumeData={resumeData}  />,
+      component: <PurpleResume resumeData={resumeData} />,
     },
   ];
 
   const renderCurrentForm = () => {
-    switch (FORM_STEPS[currentStep].id) {
+    switch (FORM_STEPS[currentStep]?.id) {
       case "personal":
         return (
           <PersonalInfoForm
@@ -336,90 +343,123 @@ export default function ResumeBuilderPage() {
             showPreview ? "lg:grid-cols-8" : "max-w-4xl mx-auto col-span-3"
           }`}
         >
-          <div
-            className={`flex flex-col h-[80vh] w-full ${
-              showPreview ? "col-span-4" : "col-span-8 mx-auto"
-            }`}
-          >
-            {/* TOP (FIXED) */}
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-between mb-4">
-                <h1 className="text-xl font-semibold">My Resume</h1>
+          {
+            <div
+              className={`flex flex-col h-[80vh] w-full ${
+                showPreview ? "col-span-4" : "col-span-8 mx-auto"
+              }`}
+            >
+              {/* TOP (FIXED) */}
+              <div className="flex-shrink-0">
+                <div className="flex items-center justify-between mb-4">
+                  <h1 className="text-xl font-semibold">My Resume</h1>
 
-                <div className="flex items-center space-x-4 ">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() =>
-                      currentStep === FORM_STEPS.length - 1
-                        ? setShowPreview(false)
-                        : setShowPreview(!showPreview)
-                    }
-                    className="bg-transparent "
-                  >
-                   { showPreview ? 
-                     <EyeOff className="h-4 w-4 mr-2" /> :
-                    <Eye className="h-4 w-4 mr-2" />
-                  }
-                    {showPreview ? "Hide Preview" : "Show Preview"}
-                  </Button>
+                  <div className="flex items-center space-x-4 ">
+                    {FORM_STEPS[currentStep]?.id != "preview" && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          currentStep === FORM_STEPS.length - 1
+                            ? setShowPreview(false)
+                            : setShowPreview(!showPreview)
+                        }
+                        className="bg-transparent "
+                      >
+                        {showPreview ? (
+                          <EyeOff className="h-4 w-4 mr-2" />
+                        ) : (
+                          <Eye className="h-4 w-4 mr-2" />
+                        )}
+                        {showPreview ? "Hide Preview" : "Show Preview"}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex overflow-x-auto gap-1 pb-2 border-b scrollbar-hide">
+                  {FORM_STEPS.map((step, index) => (
+                    <button
+                      key={step.id}
+                      onClick={() => setCurrentStep(index)}
+                      className={`px-2 py-1 rounded-md whitespace-nowrap text-sm transition
+                                 ${
+                                   currentStep === index
+                                     ? "bg-purple-600 text-white"
+                                     : "bg-muted text-muted-foreground hover:bg-purple-300"
+                                 }`}
+                    >
+                      {step.title}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              <div className="flex overflow-x-auto gap-1 pb-2 border-b scrollbar-hide">
-                {FORM_STEPS.map((step, index) => (
-                  <button
-                    key={step.id}
-                    onClick={() => setCurrentStep(index)}
-                    className={`px-2 py-1 rounded-md whitespace-nowrap text-sm transition
-          ${
-            currentStep === index
-              ? "bg-purple-600 text-white"
-              : "bg-muted text-muted-foreground hover:bg-purple-300"
-          }`}
-                  >
-                    {step.title}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex-1 overflow-y-auto mt-6 pr-2">
-              <Card>
-                <CardContent className="p-6">{renderCurrentForm()}</CardContent>
-              </Card>
-            </div>
-
-            <div className="flex-shrink-0 mt-4 flex items-center justify-between flex-wrap gap-3 border-t pt-4">
-              <Button
-                variant="outline"
-                onClick={prevStep}
-                disabled={currentStep === 0}
-                className="bg-transparent hover:bg-purple-600 hover:text-white dark:hover:bg-purple-800"
+              <div
+                className={`flex-1 mt-6 pr-2 ${
+                  FORM_STEPS[currentStep]?.id === "preview"
+                    ? "overflow-hidden w-auto flex justify-center items-start"
+                    : "overflow-y-auto"
+                }`}
               >
-                Previous
-              </Button>
-
-              <div className="flex gap-3">
-                <Button
-                  onClick={completeResume}
-                  className="bg-purple-600 text-white hover:bg-purple-500"
+                <Card
+                  className={
+                    FORM_STEPS[currentStep]?.id === "preview"
+                      ? "w-full h-full p-4 "
+                      : ""
+                  }
                 >
-                  Save
+                  <CardContent
+                    className={
+                      FORM_STEPS[currentStep]?.id === "preview"
+                        ? "p-0 flex justify-center"
+                        : "p-6"
+                    }
+                  >
+                    <div
+                      className={
+                        FORM_STEPS[currentStep]?.id === "preview"
+                          ? "scale-[0.51] min-w-[84%] max-w-[84%] origin-top"
+                          : ""
+                      }
+                    >
+                      {renderCurrentForm()}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="flex-shrink-0 mt-4 flex items-center justify-between flex-wrap gap-3 border-t pt-4">
+                <Button
+                  variant="outline"
+                  onClick={prevStep}
+                  disabled={currentStep === 0}
+                  className="bg-transparent hover:bg-purple-600 hover:text-white dark:hover:bg-purple-800"
+                >
+                  Previous
                 </Button>
 
-                <Button variant="outline">PDF</Button>
-              </div>
+                <div className="flex gap-3">
+                  <Button
+                    onClick={completeResume}
+                    className="bg-purple-600 text-white hover:bg-purple-500"
+                  >
+                    Save
+                  </Button>
 
-              <Button
-                onClick={nextStep}
-                disabled={currentStep === FORM_STEPS.length - 1}
-                className="bg-purple-600 text-white hover:bg-purple-500 dark:bg-purple-800"
-              >
-                Next
-              </Button>
+                  <Button variant="outline">PDF</Button>
+                </div>
+
+                <Button
+                  onClick={nextStep}
+                  disabled={currentStep === FORM_STEPS.length - 1}
+                  className="bg-purple-600 text-white hover:bg-purple-500 dark:bg-purple-800"
+                >
+                  Next
+                </Button>
+              </div>
             </div>
-          </div>
+          }
 
           {/* RIGHT PART (UNCHANGED) */}
           {showPreview && (

@@ -100,7 +100,9 @@ export function B_WResume({ resumeData = {}}) {
               {personalInfo.email && (
                 <div className="flex gap-2 items-center">
                   <MdOutlineAlternateEmail />
-                  <p className="text-xs">{personalInfo.email}</p>
+                  <p className="text-xs">{(personalInfo.email).length>20 ? personalInfo.email.split(18
+                    
+                  )+".." : personalInfo.email}</p>
                 </div>
               )}
 

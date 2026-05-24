@@ -26,6 +26,8 @@ async def create_resume(user: dict):
         "data": {},
         "status": "pending",
         "progress": 0,
+        "currentStep": 0,
+        "showPreview": False,
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow()
     })
@@ -57,6 +59,12 @@ async def update_resume(id: str, payload: dict):
 
     if "progress" in payload:
         update_data["progress"] = payload["progress"]
+
+    if "currentStep" in payload:
+        update_data["currentStep"] = payload["currentStep"]
+
+    if "showPreview" in payload:
+        update_data["showPreview"] = payload["showPreview"]
 
     await db.resumes.update_one(
         {"_id": id},
@@ -99,12 +107,14 @@ async def get_user_resumes(user_id: str):
 
     async for doc in cursor:
         resumes.append({
-            "id": str(doc["_id"]),   # ✅ FIX HERE
+            "id": str(doc["_id"]),   
             "userId": doc["user_id"],
             "title": doc["title"],
             "data": doc["data"],
             "status": doc["status"],
             "progress": doc["progress"],
+            # "currentStep": doc.get("currentStep", 0),
+            # "showPreview": doc.get("showPreview", False),
             "createdAt": doc["created_at"],
             "updatedAt": doc["updated_at"]
         })
@@ -123,5 +133,7 @@ async def get_single_resume(id: str):
 
     return {
         "success": True,
-        "data": resume["data"]
+        "data": resume["data"],
+        "currentStep": resume.get("currentStep", 0),
+        "showPreview": resume.get("showPreview", False)
     }
