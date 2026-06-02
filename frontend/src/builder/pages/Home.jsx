@@ -45,12 +45,12 @@ export default function Home() {
   };
 
   const handleCheckScore = () => {
-  if (!isSignedIn) {
-    openSignIn();
-  } else {
-    navigate("/score"); 
-  }
-};
+    if (!isSignedIn) {
+      openSignIn();
+    } else {
+      navigate("/score");
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#faf5ee] dark:bg-gray-900">
@@ -70,7 +70,7 @@ export default function Home() {
           >
             Build a polished resume <br />
             <span className="text-[#c07a3a] italic">in minutes</span> with AI  <br />
-           that feels like a personal career atelier
+            that feels like a personal career atelier
           </h1>
 
           <p className="my-8 font-normal self-center text-gray-600 text-lg lg:text-xl dark:text-gray-300 max-w-2xl text-center">
@@ -135,14 +135,13 @@ export default function Home() {
             border border-[#d6cdc2] dark:border-gray-600
             text-black dark:text-gray-200
             `}
-              style={{
-  transform: `
-    translate3d(${driftX}px, ${driftY + i * 10 + (isHovered ? -8 : 0)}px, 0)
-    rotate(${i === 0 ? -6 : i === 1 ? -2 : 2}deg)
-    scale(${isHovered ? 1.03 : 1})
-  `,
-  zIndex: isHovered ? 50 : 10 + i,
-}}
+                    style={{
+                      transform: `translate3d(${driftX}px, ${driftY + i * 10 + (isHovered ? -8 : 0)}px, 0)
+                                  rotate(${i === 0 ? -6 : i === 1 ? -2 : 2}deg)
+                                  scale(${isHovered ? 1.03 : 1})
+                                `,
+                      zIndex: isHovered ? 50 : 10 + i,
+                    }}
                   >
                     <div className="flex justify-between items-center">
                       <span className="text-xs font-semibold text-[#6b645c] dark:text-gray-400">
@@ -203,11 +202,11 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
+
       </div>
 
       {/* Features Section */}
-      <section className="bg-[#f5efe6] dark:bg-gray-800 w-full py-16 px-6">
+      <section className="bg-[#f6f3ed] dark:bg-gray-800 w-full py-16 px-6">
         <h3 className="text-center text-3xl font-bold text-gray-800 dark:text-gray-100">
           Everything You Need to Land Your Dream Job
         </h3>
@@ -217,7 +216,7 @@ export default function Home() {
 
         <div className="mt-10 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Resume Builder Card */}
-          <div className="shadow-md rounded-2xl p-6 bg-[#faf7f2] dark:bg-gray-900">
+          <div className="shadow-md rounded-2xl p-6 bg-[#f5efe6] dark:bg-gray-900">
             <div className="flex items-center gap-2 mb-4">
               <FileText className="text-purple-500" size={24} />
               <h4 className="font-semibold text-2xl text-gray-800 dark:text-gray-100">
@@ -235,7 +234,7 @@ export default function Home() {
           </div>
 
           {/* Resume Scorer Card */}
-          <div className="shadow-md rounded-2xl p-6 bg-[#faf7f2] dark:bg-gray-900">
+          <div className="shadow-md rounded-2xl p-6 bg-[#f5efe6] dark:bg-gray-900">
             <div className="flex items-center gap-2 mb-4">
               <ClipboardCheck className="text-purple-500" size={24} />
               <h4 className="font-semibold text-2xl text-gray-800 dark:text-gray-100">
