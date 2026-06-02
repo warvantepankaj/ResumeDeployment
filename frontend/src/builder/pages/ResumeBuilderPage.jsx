@@ -339,7 +339,7 @@ export default function ResumeBuilderPage() {
         )}
 
         <div
-          className={`grid gap-8 ${
+          className={`grid gap-4 ${
             showPreview ? "lg:grid-cols-8" : "max-w-4xl mx-auto col-span-3"
           }`}
         >
@@ -471,8 +471,8 @@ export default function ResumeBuilderPage() {
                 </CardHeader>
 
                 <CardContent className="overflow-hidden max-h-[600px] ">
-                  <div className="w-auto flex justify-center items-center">
-                    <div className="origin-top scale-[0.62] w-full">
+                  <div className="flex justify-center items-center w-full">
+                    <div className="origin-top scale-[0.49] w-full">
                       {currentTemplate?.find((template) => {
                         return template?.id === resumeData?.selectedTemplate;
                       })?.component || (

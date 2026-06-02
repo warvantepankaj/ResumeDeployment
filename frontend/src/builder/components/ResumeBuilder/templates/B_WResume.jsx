@@ -63,12 +63,12 @@ export function B_WResume({ resumeData = {}}) {
 };
 
   return (
-    <div id="resume-preview" className="space-y-8 ">
+    <div id="resume-preview" className="flex justify-center items-center">
     
 
-      <div className="w-auto bg-white shadow-xl min-h-[1000px] flex border border-gray-300 dark:border-gray-600">
+      <div className="bg-white shadow-xl min-h-[1123px] min-w-[794px] flex border border-gray-300 dark:border-gray-600">
         {/* ================= LEFT SIDEBAR ================= */}
-        <div className="w-[32%] bg-[#374151] text-gray-200 dark:text-gray-300 p-4 flex flex-col gap-6 ">
+        <div className="w-[35%] bg-[#374151] text-gray-200 dark:text-gray-300 p-4 flex flex-col gap-6 ">
           {/* Profile Image */}
           <div className="flex justify-center text-center">
             <img
@@ -84,7 +84,7 @@ export function B_WResume({ resumeData = {}}) {
           {/* Contact */}
           <div>
             {personalInfo.city && (
-              <h2 className="font-semibold text-xl border-b border-gray-400 pb-1 mb-1">
+              <h2 className="font-semibold w-full text-xl border-b border-gray-400 pb-1 mb-1">
                 CONTACT
               </h2>
             )}
@@ -93,14 +93,14 @@ export function B_WResume({ resumeData = {}}) {
               {personalInfo.phone && (
                 <div className="flex gap-2  items-center">
                   <IoIosContact />
-                  <p className="text-xs">{personalInfo.phone}</p>
+                  <p className="text-sm">{personalInfo.phone}</p>
                 </div>
               )}
 
               {personalInfo.email && (
                 <div className="flex gap-2 items-center">
                   <MdOutlineAlternateEmail />
-                  <p className="text-xs">{(personalInfo.email).length>20 ? personalInfo.email.split(18
+                  <p className="text-sm">{(personalInfo.email).length>20 ? personalInfo.email.split(18
                     
                   )+".." : personalInfo.email}</p>
                 </div>
@@ -109,7 +109,7 @@ export function B_WResume({ resumeData = {}}) {
               {(personalInfo.city || personalInfo.state) && (
                 <div className="flex gap-2 items-center">
                   <IoLocationOutline />
-                  <p className="text-xs">
+                  <p className="text-sm">
                     {[personalInfo.city, personalInfo.state]
                       .filter(Boolean)
                       .join(", ")}
@@ -119,13 +119,13 @@ export function B_WResume({ resumeData = {}}) {
               {personalInfo.linkedin && (
                 <div className="flex gap-2 items-center">
                   <RiLinkedinBoxFill />
-                  <p className="text-xs cursor-pointer">LinkedIn</p>
+                  <p className="text-sm cursor-pointer">LinkedIn</p>
                 </div>
               )}
               {personalInfo.website && (
                 <div className="flex gap-2 items-center">
                   <CiLink />
-                  <p className="text-xs cursor-pointer">Portfolio</p>
+                  <p className="text-sm cursor-pointer">Portfolio</p>
                 </div>
               )}
             </div>
@@ -133,7 +133,7 @@ export function B_WResume({ resumeData = {}}) {
 
           {/* Education */}
           {education.length > 0 && (
-            <div>
+            <div className="w-full">
               <h2 className="font-semibold text-lg border-b border-gray-400 pb-1 mb-1">
                 EDUCTION
               </h2>
@@ -141,7 +141,7 @@ export function B_WResume({ resumeData = {}}) {
               {education.map((edu) => (
                 <div
                   key={edu.id}
-                  className="font-semibold text-[13px] mb-3 pl-1"
+                  className="font-semibold text-sm mb-3 pl-1"
                 >
                  {edu.startDate && ( <p className="text-[11px] font-normal">
                     {edu.startDate} - {edu.endDate}
@@ -152,12 +152,12 @@ export function B_WResume({ resumeData = {}}) {
                   {/* <p className="font-semibold text-[13px] leading-4 mb-1">
                     {edu.degree} {edu.field}
                   </p> */}
-                  <ul className="list-disc ml-5 inline-block">
-                    {edu?.degree && (<li className="text-[12px] font-normal leading-tight">
+                  <ul className="list-disc ml-5 mt-1 inline-block">
+                    {edu?.degree && (<li className="text-[13px] font-normal leading-tight">
                       {edu?.degree}
                     </li>)}
-                    {edu.scoreValue && (<li className="text-[12px] font-normal leading-tight">
-                      {edu.scoreType} : {edu.scoreValue}
+                    {edu.scoreValue && (<li className="text-[13px] font-normal leading-tight">
+                      {edu.scoreType} : <span className="font-semibold">{edu.scoreValue}</span>
                       {edu.scoreType === "Percentage" && "%"}
                     </li>)}
                   </ul>
@@ -206,7 +206,7 @@ export function B_WResume({ resumeData = {}}) {
                 LANGUAGES
               </h2>
 
-              <ul className="text-[12px] pl-1 ml-5">
+              <ul className="text-[13px] pl-1 ml-5">
                 {skills.languages.map((language, indx) => (
                   <li key={indx} className="list-disc">
                     {language}

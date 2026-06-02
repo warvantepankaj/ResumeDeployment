@@ -63,7 +63,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-[#f5efe6] dark:bg-gray-900 overflow-hidden overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600">
+    <div className="h-screen flex flex-col bg-[#f9f4ee] dark:bg-gray-900 overflow-hidden overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600">
       {/* Navbar */}
       <Navbar />
 
@@ -85,23 +85,23 @@ export default function Dashboard() {
       <ResumeNameModal isOpen={openModal} onClose={() => setOpenModal(false)} />
 
       {/* ✅ Scrollable Resume List */}
-      <div className="flex-1  mt-10 px-6 md:px-16 ">
+      <div className="flex-1 my-10 px-6 md:px-16 ">
         {!loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 justify-items-center p-4">
             {resumes.map((resume) => (
               <div
                 key={resume.id}
                 className="flex flex-col bg-[#fcf8f3] dark:bg-gray-800 
-             w-full max-w-[300px] h-[320px] 
+             w-full max-w-[220px] h-[260px] 
              shadow-lg border border-gray-300 dark:border-gray-700
              hover:shadow-2xl transition p-4 rounded-xl"
               >
                 <div className="flex-1">
-                  <h2 className="text-lg font-bold text-gray-900 dark:text-white truncate">
+                  <h2 className="text-[14px] font-bold text-gray-900 dark:text-white truncate">
                     {resume.title}
                   </h2>
 
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     Last Updated:{" "}
                     {new Date(resume.updatedAt).toLocaleDateString()}
                   </p>
@@ -111,15 +111,16 @@ export default function Dashboard() {
                     <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
                     <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
                     <div className="h-2 bg-gray-300 dark:bg-gray-600 rounded w-2/3"></div>
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
                   </div>
                 </div>
 
-                <div className="flex justify-between text-md mt-4 border-t border-gray-200 dark:border-gray-700 pt-2">
+                <div className="flex text-xs justify-between text-md mt-4 border-t border-gray-200 dark:border-gray-700 pt-2">
                   <button
                     onClick={() => handleEdit(resume.id)}
                     className="flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline"
                   >
-                    <Pencil size={14} /> Edit
+                    <Pencil size={12} /> Edit
                   </button>
 
                   <button
@@ -129,7 +130,7 @@ export default function Dashboard() {
                     }}
                     className="flex items-center gap-1 text-red-600 dark:text-red-400 hover:underline"
                   >
-                    <Trash2 size={14} /> Delete
+                    <Trash2 size={12} /> Delete
                   </button>
                   {selectedResume && (
                     <DeleteResumeModal
