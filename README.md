@@ -39,9 +39,8 @@ python -m venv venv
 
 
 *4. Install dependencies*
-bash
-pip install -r requirements.txt
-playwright install chromium
+  pip install -r requirements.txt
+  playwright install chromium
 
 
 *5. Run FastAPI server*
