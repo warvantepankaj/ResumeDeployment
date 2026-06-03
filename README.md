@@ -22,23 +22,23 @@ npm run dev
 ## ⚙️ Backend Setup
 
 *1. Navigate to backend*
-bash
+
 cd backend
 
 
 *2. Create virtual environment*
-bash
+
 python -m venv venv
 
 
 *3. Activate virtual environment*
 
 - Windows:
-bash
+
 venv\Scripts\activate
 
 - Mac/Linux:
-bash
+
 source venv/bin/activate
 
 
