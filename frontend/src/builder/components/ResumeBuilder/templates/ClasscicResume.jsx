@@ -212,4 +212,8 @@ function Section({ title, children }) {
       {children}
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ab175198062d7e0060694df3238e0d48b95b4f13
