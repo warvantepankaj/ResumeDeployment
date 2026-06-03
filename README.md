@@ -40,6 +40,7 @@ python -m venv venv
 
 *4. Install dependencies*
   pip install -r requirements.txt
+  
   playwright install chromium
 
 
