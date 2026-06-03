@@ -6,12 +6,9 @@ import uuid
 from playwright.async_api import async_playwright
 from fastapi.responses import StreamingResponse
 import io
-<<<<<<< HEAD
-import sys
 import asyncio
+import sys
 from playwright.sync_api import sync_playwright
-=======
->>>>>>> ab175198062d7e0060694df3238e0d48b95b4f13
 
 router = APIRouter()
 class ExportRequest(BaseModel):
@@ -151,7 +148,8 @@ async def get_single_resume(id: str):
     }
 
 
-<<<<<<< HEAD
+
+
 
 
 @router.post("/resume/export/pdf")
@@ -195,41 +193,6 @@ async def export_resume_pdf(body: ExportRequest):
         loop = asyncio.get_event_loop()
         with concurrent.futures.ThreadPoolExecutor() as pool:
             pdf_bytes = await loop.run_in_executor(pool, generate_pdf)
-=======
-@router.post("/resume/export/pdf")
-async def export_resume_pdf(body: ExportRequest):
-    try:
-        async with async_playwright() as p:
-            browser = await p.chromium.launch()
-            page = await browser.new_page()
-
-            full_html = f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-              <meta charset="UTF-8">
-              <script src="https://cdn.tailwindcss.com"></script>
-              <style>
-                body {{ margin: 0; padding: 0; background: white; }}
-                @page {{ size: A4; margin: 0; }}
-              </style>
-            </head>
-            <body>
-              {body.htmlContent}
-            </body>
-            </html>
-            """
-
-            await page.set_content(full_html, wait_until="networkidle")
-
-            pdf_bytes = await page.pdf(
-                format="A4",
-                print_background=True,
-                margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
-            )
-
-            await browser.close()
->>>>>>> ab175198062d7e0060694df3238e0d48b95b4f13
 
         return StreamingResponse(
             io.BytesIO(pdf_bytes),
