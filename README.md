@@ -1,111 +1,76 @@
-🚀 ResumeAI
+## ⚙️ Frontend Setup
 
-ResumeAI is a full-stack web application that helps users build, manage, and score resumes with an interactive UI and smart backend processing.
-
-🛠 Tech Stack
-
-Frontend
-React.js
-React Router DOM
-Tailwind CSS
-Clerk Authentication
-
-Backend
-FastAPI
-Python
-Uvicorn
-
-Database
-MongoDB
-
----
-
-📁 Project Structure
-
-```
-ResumeAI/
-│
-├── backend/
-│   ├── app/
-│   ├── venv/
-│   ├── requirements.txt
-│   └── .env
-│
-├── frontend/
-│
-└── README.md
-```
-
----
-
-⚙️ Frontend Setup
-
-1. Navigate to frontend
-
-```bash
+*1. Navigate to frontend*
+bash
 cd frontend
-```
 
-2. Install dependencies
 
-```bash
+*2. Install dependencies*
+bash
 npm install
-```
 
-3. Start development server
 
-```bash
+*3. Start development server*
+bash
 npm run dev
-```
 
-👉 App will run on: `http://localhost:5173`
+
+👉 App will run on: http://localhost:5173
 
 ---
 
-⚙️ Backend Setup
+## ⚙️ Backend Setup
 
-1. Navigate to backend
-
-```bash
+*1. Navigate to backend*
+bash
 cd backend
-```
 
-2. Create virtual environment
 
-```bash
+*2. Create virtual environment*
+bash
 python -m venv venv
-```
 
-3. Activate virtual environment
-4. 
-```bash
+
+*3. Activate virtual environment*
+
+- Windows:
+bash
 venv\Scripts\activate
-```
+
+- Mac/Linux:
+bash
+source venv/bin/activate
 
 
-4. Install dependencies
-
-```bash
+*4. Install dependencies*
+bash
 pip install -r requirements.txt
 playwright install chromium
-```
 
-5. Run FastAPI server
 
-```bash
+*5. Run FastAPI server*
+bash
 uvicorn app.main:app --reload --port 8000
-```
 
-👉 Backend will run on: `http://127.0.0.1:8000`
+
+👉 Backend will run on: http://127.0.0.1:8000
 
 ---
 
-🔐 Environment Variables
+## 🔐 Environment Variables
 
-Create a `.env` file inside the `backend` folder and add:
+Create a .env file inside the backend folder and add:
 
-```
+env
 MONGODB_URL=your_mongodb_connection_string
 CLERK_SECRET_KEY=your_clerk_secret_key
-```
+GEMINI_API_KEY=your_gemini_api_key
 
+
+---
+
+## ⚠️ Notes
+
+- Do not commit the venv/ folder or .env file to version control.
+- Make sure MongoDB is running before starting the backend.
+- Python 3.12 is recommended. Python 3.14 is not yet supported by all dependencies.
