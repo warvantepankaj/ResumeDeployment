@@ -103,7 +103,7 @@ export function PurpleResume({ resumeData = {}, compact = false, length = 0 }) {
 
     <div id="resume-preview" className="flex justify-center items-center">
 
-  <Card className="bg-[#faf8f6] shadow-2xl border-gray-300 dark:border-gray-700 dark:bg-gray-800 w-auto h-auto">
+  <Card className="bg-[#faf8f6] shadow-2xl border-gray-300 dark:border-gray-700 dark:bg-gray-800 w-auto h-auto px-5">
     <CardContent>
 
       <div
