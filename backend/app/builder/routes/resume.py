@@ -1,9 +1,18 @@
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 from app.database import get_database
 from datetime import datetime
 import uuid
+from playwright.async_api import async_playwright
+from fastapi.responses import StreamingResponse
+import io
+import sys
+import asyncio
+from playwright.sync_api import sync_playwright
 
 router = APIRouter()
+class ExportRequest(BaseModel):
+    htmlContent: str
 
 @router.post("/resume")
 async def create_resume(user: dict):
@@ -137,3 +146,58 @@ async def get_single_resume(id: str):
         "currentStep": resume.get("currentStep", 0),
         "showPreview": resume.get("showPreview", False)
     }
+
+
+
+
+@router.post("/resume/export/pdf")
+async def export_resume_pdf(body: ExportRequest):
+    try:
+        import concurrent.futures
+        
+        def generate_pdf():
+            with sync_playwright() as p:
+                browser = p.chromium.launch()
+                page = browser.new_page()
+
+                full_html = f"""
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <meta charset="UTF-8">
+                  <script src="https://cdn.tailwindcss.com"></script>
+                  <style>
+                    body {{ margin: 0; padding: 0; background: white; }}
+                    @page {{ size: A4; margin: 0; }}
+                  </style>
+                </head>
+                <body>
+                  {body.htmlContent}
+                </body>
+                </html>
+                """
+
+                page.set_content(full_html, wait_until="networkidle")
+
+                pdf_bytes = page.pdf(
+                    format="A4",
+                    print_background=True,
+                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
+                )
+
+                browser.close()
+                return pdf_bytes
+
+        loop = asyncio.get_event_loop()
+        with concurrent.futures.ThreadPoolExecutor() as pool:
+            pdf_bytes = await loop.run_in_executor(pool, generate_pdf)
+
+        return StreamingResponse(
+            io.BytesIO(pdf_bytes),
+            media_type="application/pdf",
+            headers={"Content-Disposition": "attachment; filename=resume.pdf"}
+        )
+
+    except Exception as e:
+        print("PDF ERROR:", str(e))
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {str(e)}")

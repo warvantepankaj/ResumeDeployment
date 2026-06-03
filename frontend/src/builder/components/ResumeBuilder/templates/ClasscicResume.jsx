@@ -32,7 +32,7 @@ export function ClassicResume({ resumeData = {} }) {
      <div id="resume-preview" className="flex justify-center items-center">
     <Card className="bg-[#faf8f6] shadow-2xl border-gray-300 dark:border-gray-700 dark:bg-gray-300  w-auto h-auto ">
       <CardContent>
-        <div className=" text-black min-h-[1123px] min-w-[794px]  p-4 font-[ui-serif] w-auto leading-tight dark:bg-gray-300">
+        <div id="printable-resume-content" className=" text-black min-h-[1123px] min-w-[794px]  p-4 font-[ui-serif] w-auto leading-tight dark:bg-gray-300">
           {/* HEADER */}
           <div className="text-center mb-2">
             <h1 className="text-3xl font-semibold tracking-wide">

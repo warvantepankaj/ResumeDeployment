@@ -63,7 +63,7 @@ export function B_WResume({ resumeData = {}}) {
 };
 
   return (
-    <div id="resume-preview" className="flex justify-center items-center">
+    <div id="printable-resume-content" className="flex justify-center items-center">
     
 
       <div className="bg-white shadow-xl min-h-[1123px] min-w-[794px] flex border border-gray-300 dark:border-gray-600">
@@ -332,7 +332,7 @@ export function B_WResume({ resumeData = {}}) {
                       {proj.technologies.map((tech, i) => (
                         <span
                           key={i}
-                          className="text-xs bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-400 px-2 pb-1 rounded"
+                          className="text-xs flex  justify-center bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-400 px-2 py-0.5 rounded"
                         >
                           {tech}
                         </span>
