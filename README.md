@@ -77,15 +77,17 @@ python -m venv venv
 ```
 
 3. Activate virtual environment
-
+4. 
 ```bash
 venv\Scripts\activate
 ```
+
 
 4. Install dependencies
 
 ```bash
 pip install -r requirements.txt
+playwright install chromium
 ```
 
 5. Run FastAPI server
