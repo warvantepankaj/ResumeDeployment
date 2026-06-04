@@ -41,27 +41,27 @@ export function ClassicResume({ resumeData = {} }) {
 
             <p className="text-sm mt-1">
               {(personalInfo?.city || personalInfo?.state) && (
-              <div className="text-[15px] font-semibold">
+              <div className="text-[17px] font-semibold">
                 {[personalInfo?.city, personalInfo?.state].filter(Boolean).join(", ")}
               </div>
             )}
             </p>
 
-            <div className="flex justify-center gap-3 text-xs mt-1 flex-wrap">
+            <div className="flex justify-center gap-5 text-[15px] mt-1 flex-wrap">
              {personalInfo.phone && ( <div className="flex gap-1 items-center">
-                <FaPhone size={8} />
+                <FaPhone size={10} />
                 <span>{personalInfo.phone}</span>
               </div>)}
               { personalInfo.email && (<div className="flex gap-1 items-center">
-                <MdEmail size={11} />
+                <MdEmail size={13} />
                 <span>{personalInfo.email}</span>
               </div>)}
               {personalInfo.linkedin && (<div className="flex gap-1 items-center">
-                <FaLinkedin size={10} />
+                <FaLinkedin size={12} />
                 <span>{personalInfo.linkedin}</span>
               </div>)}
               {personalInfo.website && (<div className="flex gap-1 items-center">
-                <IoLogoGithub size={10} />
+                <IoLogoGithub size={12} />
                 <span>{personalInfo.website}</span>
               </div>)}
               {/* <div className="flex gap-1 items-center"><FaPhone size={9}/><span>{personalInfo.phone}</span></div>          */}
@@ -72,14 +72,14 @@ export function ClassicResume({ resumeData = {} }) {
           <Section title="Education">
             {education.map((edu) => (
               <div key={edu.id} className="mb-0.5">
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[15px]">
                   <p className="font-semibold ">{edu.institution}</p>
                   <p>
                     {formatDate(edu.startDate)} – {formatDate(edu.endDate)}
                   </p>
                 </div>
 
-                <div className="flex text-[13px] italic">
+                <div className="flex text-[15px] italic">
                   <p>
                     {edu.degree} {edu.field && <span>in {edu.field}</span>}
                   </p>
@@ -105,13 +105,13 @@ export function ClassicResume({ resumeData = {} }) {
             {workExperience.map((exp) => (
               <div key={exp.id} className="mb-1">
                 <div className="flex justify-between">
-                  <p className="font-semibold text-[13px]">{exp.company}</p>
-                  <p className="text-[13px]">
+                  <p className="font-semibold text-[15px]">{exp.company}</p>
+                  <p className="text-[15px]">
                     {formatDate(exp.startDate)} – {formatDate(exp.endDate)}
                   </p>
                 </div>
 
-                <div className="flex justify-between italic text-sm">
+                <div className="flex justify-between italic text-[15px]">
                   <p>{exp.position}</p>
                   {exp.city && exp.state && (
                     <p>
@@ -120,7 +120,7 @@ export function ClassicResume({ resumeData = {} }) {
                   )}
                 </div>
 
-                <ul className="list-disc pl-5 text-[13px] leading-tight">
+                <ul className="list-disc pl-5 text-[14px] leading-tight">
                   {exp.description
                     ?.split(".")
                     .filter(Boolean)
@@ -137,18 +137,18 @@ export function ClassicResume({ resumeData = {} }) {
             {projects.map((proj) => (
               <div key={proj.id} className="mb-1">
                 <div className="flex justify-between">
-                  <p className="font-semibold text-[13px]">
+                  <p className="font-semibold text-[15px]">
                     {proj.name}{" "}
                     <span className="italic font-normal">
                       | {proj.technologies?.join(", ")}
                     </span>
                   </p>
-                  <p className="text-[13px]">
+                  <p className="text-[15px]">
                     {formatDate(proj.startDate)} - {formatDate(proj.endDate)}
                   </p>
                 </div>
 
-                <ul className="list-disc pl-5 text-[13px] leading-tight">
+                <ul className="list-disc pl-5 text-[14px] leading-tight">
                   {proj.description
                     ?.split(".")
                     .filter(Boolean)
@@ -161,15 +161,15 @@ export function ClassicResume({ resumeData = {} }) {
           </Section>
 
           {/* SKILLS */}
-          <Section title="Technical Skills">
+          <Section title="Skills">
             <div className="flex flex-col gap-1">
-              <p className="text-[13px] font-medium ">
-                <strong>Languages:</strong> {skills.languages?.join(", ")}
+              <p className="text-[15px] font-medium ">
+                <strong>Technical:</strong> {skills.technical?.length>0 &&  skills.languages?.join(", ")}
               </p>
-              <p className="text-[13px]">
-                <strong>Developer Tools:</strong> {skills.tools?.join(", ")}
+              <p className="text-[15px]">
+                <strong>Soft :</strong> {skills.soft.length>0 && skills.soft?.join(", ")}
               </p>
-              <p className="text-[13px]">
+              <p className="text-[15px]">
                 <strong>Technologies/Frameworks:</strong>{" "}
                 {skills.technologies?.join(", ")}
               </p>
@@ -180,12 +180,12 @@ export function ClassicResume({ resumeData = {} }) {
           {achievements.length > 0 && (
             <Section title="Achivements">
               {achievements.map((ach, i) => (
-                <div key={i} className="mb-1 text-[13px]">
+                <div key={i} className="mb-1 text-[15px]">
                   <div className="flex justify-between">
                     <p className="font-semibold">{ach.title}</p>
                   </div>
 
-                  <ul className="list-disc pl-5 text-[13px]">
+                  <ul className="list-disc pl-5 text-[15px]">
                     {ach.description
                       ?.split(".")
                       .filter(Boolean)
