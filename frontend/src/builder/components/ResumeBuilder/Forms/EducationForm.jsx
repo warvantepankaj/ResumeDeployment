@@ -58,7 +58,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
       )}
 
       {data.map((education, index) => (
-        <Card key={education.id} className="bg-gray-100 dark:bg-gray-900 shadow-md rounded-2xl">
+        <Card key={education.id} className="bg-[#fefaf5] dark:bg-gray-900 shadow-md rounded-2xl">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -88,7 +88,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
                   }
                   placeholder="Harvard University"
                   required
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-white"
                 />
               </div>
               <div className="space-y-2">
@@ -100,7 +100,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
                   }
                   placeholder="Bachelor of Science"
                   required
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 />
               </div>
             </div>
@@ -114,7 +114,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
                 }
                 placeholder="Computer Science"
                 required
-                className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
               />
             </div>
 
@@ -127,7 +127,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
                   onChange={(e) =>
                     updateEducation(education.id, "startDate", e.target.value)
                   }
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 />
               </div>
               <div className="space-y-2">
@@ -138,7 +138,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
                   onChange={(e) =>
                     updateEducation(education.id, "endDate", e.target.value)
                   }
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 />
               </div>
             </div>
@@ -179,7 +179,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
                             ? "85%"
                              : "Enter value"
                     }
-                    className="w-2/3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                    className="w-2/3 bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                   />
 
                   {/* Dropdown */}
@@ -188,7 +188,7 @@ export function EducationForm({ data = [], onUpdate = () => { } }) {
                     onChange={(e) =>
                       updateEducation(education.id, "scoreType", e.target.value)
                     }
-                    className="w-1/3 px-2 py-1 rounded-md border outline-none bg-white text-sm dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                    className="w-1/3 px-2 py-1 rounded-md border outline-none bg-[#fefaf5] text-sm dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                   >
                     <option value="">Type</option>
                     <option value="GPA">GPA</option>

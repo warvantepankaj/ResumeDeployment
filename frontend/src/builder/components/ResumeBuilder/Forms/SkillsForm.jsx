@@ -91,7 +91,7 @@ export function SkillsForm({ data = {}, onUpdate }) {
         <CardContent className="text-sm text-muted-foreground space-y-2">
           <p>• Include both technical and soft skills relevant to your target role</p>
           <p>• Use specific technologies, tools, and programming languages</p>
-          <p>• Add skills that match job descriptions you're applying for</p>
+          <p>• Add skills that match job descriptions you are applying for</p>
           <p>• Press Enter to add each skill quickly</p>
         </CardContent>
       </Card>

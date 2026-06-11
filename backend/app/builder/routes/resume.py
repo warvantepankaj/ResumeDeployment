@@ -11,6 +11,7 @@ import sys
 from playwright.sync_api import sync_playwright
 
 router = APIRouter()
+
 class ExportRequest(BaseModel):
     htmlContent: str
 
@@ -46,6 +47,46 @@ async def create_resume(user: dict):
         "id": resume_id
     }
 
+# @router.put("/resume/{id}")
+# async def update_resume(id: str, payload: dict):
+#     db = get_database()
+
+#     existing = await db.resumes.find_one({"_id": id})
+
+#     if not existing:
+#         raise HTTPException(status_code=404, detail="Resume not found")
+
+#     update_data = {
+#         "updated_at": datetime.utcnow()
+#     }
+
+#     if "data" in payload:
+#         update_data["data"] = payload["data"]
+
+#     if "status" in payload:
+#         update_data["status"] = payload["status"]
+
+#     if "progress" in payload:
+#         update_data["progress"] = payload["progress"]
+
+#     if "currentStep" in payload:
+#         update_data["currentStep"] = payload["currentStep"]
+
+#     if "showPreview" in payload:
+#         update_data["showPreview"] = payload["showPreview"]
+
+#     await db.resumes.update_one(
+#         {"_id": id},
+#         {"$set": update_data}
+#     )
+
+#     updated = await db.resumes.find_one({"_id": id})
+
+#     return {
+#         "success": True,
+#         "message": "Resume Updated successfully",
+#         "data": updated
+#     }
 
 @router.put("/resume/{id}")
 async def update_resume(id: str, payload: dict):
@@ -54,14 +95,22 @@ async def update_resume(id: str, payload: dict):
     existing = await db.resumes.find_one({"_id": id})
 
     if not existing:
-        raise HTTPException(status_code=404, detail="Resume not found")
+        raise HTTPException(
+            status_code=404,
+            detail="Resume not found"
+        )
 
     update_data = {
         "updated_at": datetime.utcnow()
     }
 
     if "data" in payload:
-        update_data["data"] = payload["data"]
+        resume_data = payload["data"]
+
+        if "profilePhoto" in resume_data:
+            print("Image Saved")
+
+        update_data["data"] = resume_data
 
     if "status" in payload:
         update_data["status"] = payload["status"]
@@ -84,10 +133,9 @@ async def update_resume(id: str, payload: dict):
 
     return {
         "success": True,
-        "message": "Updated successfully",
+        "message": "Resume Updated successfully",
         "data": updated
     }
-
 
 @router.delete("/resume/{id}")
 async def delete_resume(id: str):
@@ -103,8 +151,6 @@ async def delete_resume(id: str):
         "message": "Deleted successfully",
         "id": id
     }
-
-
 
 @router.get("/resume/{user_id}")
 async def get_user_resumes(user_id: str):
@@ -129,8 +175,6 @@ async def get_user_resumes(user_id: str):
         })
     return resumes
 
-
-
 @router.get("/resume/single/{id}")
 async def get_single_resume(id: str):
     db = get_database()
@@ -146,11 +190,6 @@ async def get_single_resume(id: str):
         "currentStep": resume.get("currentStep", 0),
         "showPreview": resume.get("showPreview", False)
     }
-
-
-
-
-
 
 @router.post("/resume/export/pdf")
 async def export_resume_pdf(body: ExportRequest):

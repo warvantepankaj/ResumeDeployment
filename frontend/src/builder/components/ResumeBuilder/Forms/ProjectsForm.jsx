@@ -72,7 +72,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-white dark:bg-gray-900">
+      <Card className="bg-muted/30 dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="text-base text-gray-800 dark:text-gray-100">
             Projects Section (Optional)
@@ -86,7 +86,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
       </Card>
 
       {data.length === 0 && (
-        <Card className="bg-white bg-gray-100 shadow-md dark:bg-gray-800 dark:bg-gray-900">
+        <Card className="bg-muted/30 shadow-md dark:bg-gray-800 dark:bg-gray-900">
           <CardContent className="pt-6 text-center">
             <p className="text-gray-600 dark:text-gray-300 mb-4">No projects added yet</p>
             <Button onClick={addProject} className={'bg-purple-600 text-white hover:bg-purple-500 dark:bg-purple-900 dark:hover:bg-purple-800'}>
@@ -98,7 +98,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
       )}
 
       {data.map((project, index) => (
-        <Card key={project.id} className="bg-white dark:bg-gray-900 ">
+        <Card key={project.id} className="bg-muted/30 dark:bg-gray-900 ">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -120,7 +120,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
                   value={project.name}
                   onChange={(e) => updateProject(project.id, "name", e.target.value)}
                   placeholder="E-commerce Website"
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                   required
                 />
               </div>
@@ -130,7 +130,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
                   value={project.link || ""}
                   onChange={(e) => updateProject(project.id, "link", e.target.value)}
                   placeholder="https://github.com/username/project"
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 />
               </div>
             </div>
@@ -141,7 +141,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
                 value={project.description}
                 onChange={(e) => updateProject(project.id, "description", e.target.value)}
                 placeholder="Built a full-stack e-commerce platform..."
-                className="min-h-[80px] bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                className="min-h-[80px] bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 required
               />
             </div>
@@ -153,7 +153,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
                   type="month"
                   value={project.startDate}
                   onChange={(e) => updateProject(project.id, "startDate", e.target.value)}
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 />
               </div>
               <div className="space-y-2">
@@ -162,7 +162,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
                   type="month"
                   value={project.endDate}
                   onChange={(e) => updateProject(project.id, "endDate", e.target.value)}
-                  className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 />
               </div>
             </div>
@@ -180,7 +180,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
                   }
                   onKeyPress={(e) => handleTechnologyKeyPress(e, project.id)}
                   placeholder="e.g., React, Node.js, MongoDB"
-                  className="flex-1 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                  className="flex-1 bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                 />
                 <Button
                 className={'bg-purple-600 dark:purple-900 hover:bg-purple-500 hover:dark:bg-800 '}
@@ -198,7 +198,7 @@ export function ProjectsForm({ data = [], onUpdate }) {
                     <Badge
                       key={techIndex}
                       variant="secondary"
-                      className="text-sm bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                      className="text-sm bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
                     >
                       {tech}
                       <button

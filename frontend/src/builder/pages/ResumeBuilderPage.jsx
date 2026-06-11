@@ -13,6 +13,8 @@ import { Eye, CheckCircle, EyeOff } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import { MdOutlineFileDownload } from "react-icons/md";
+import { BiSolidSave } from "react-icons/bi";
 
 import { PersonalInfoForm } from "@/builder/components/ResumeBuilder/Forms/PersonalInfoForm.jsx";
 import { ProfessionalSummaryForm } from "@/builder/components/ResumeBuilder/Forms/ProfessionalSummaryForm.jsx";
@@ -163,7 +165,7 @@ export default function ResumeBuilderPage() {
     if (currentStep == 9) {
       setShowPreview(false);
     } else {
-      setShowPreview(showPreview);
+      setShowPreview(true);
     }
   }, [dataTransferred, toast, currentStep, setShowPreview]);
 
@@ -174,21 +176,16 @@ export default function ResumeBuilderPage() {
     }));
   };
 
-  // useEffect(() => {
-  //   if (resumeData) {
-  //     setCurrentStep(resumeData.currentStep ?? 0);
-  //     setShowPreview(resumeData.showPreview ?? false);
-  //   }
-  // }, []);
-
   const nextStep = () => {
     if (currentStep < FORM_STEPS.length - 1) {
       setCurrentStep(currentStep + 1);
       scrollContainerRef.current?.scrollTo(0, 0);
     }
-    
-    // if (currentStep == 8) setShowPreview(false);
   };
+
+  useEffect(() => {
+  console.log(FORM_STEPS[currentStep]?.id,"hsbrfsuidhihd");
+}, [currentStep]);
 
   const prevStep = () => {
     if (currentStep > 0){
@@ -196,6 +193,8 @@ export default function ResumeBuilderPage() {
       scrollContainerRef.current?.scrollTo(0, 0);
     }
   };
+
+  
 
   const completeResume = async () => {
     try {
@@ -368,43 +367,12 @@ export default function ResumeBuilderPage() {
       a.click();
       window.URL.revokeObjectURL(url);
 
-      toast.success("PDF downloaded!", { id: toastId });
+      toast.success("PDF downloaded!",{ id: toastId,});
     } catch (err) {
       console.error(err);
       toast.error("Failed to generate PDF.", { id: toastId });
     }
   };
-
-  // const handleDownloadPDF = async () => {
-  //   const toastId = toast.loading("Generating PDF...");
-  //   try {
-  //     // Get the resume element - works for both preview step and live preview
-  //     const resumeElement = document.getElementById("printable-resume-content");
-
-  //     if (!resumeElement) {
-  //       toast.error("Resume content not found. Please go to Preview step first.", { id: toastId });
-  //       return;
-  //     }
-
-  //     const response = await axios.post(
-  //       "http://localhost:8000/builder/resume/export/pdf",
-  //       { htmlContent: resumeElement.outerHTML },
-  //       { responseType: "blob" }
-  //     );
-
-  //     const url = window.URL.createObjectURL(new Blob([response.data]));
-  //     const a = document.createElement("a");
-  //     a.href = url;
-  //     a.download = `resume_${resumeId}.pdf`;
-  //     a.click();
-  //     window.URL.revokeObjectURL(url);
-
-  //     toast.success("PDF downloaded!", { id: toastId });
-  //   } catch (err) {
-  //     console.error(err);
-  //     toast.error("Failed to generate PDF.", { id: toastId });
-  //   }
-  // };
 
   return (
     <div className="h-screen bg-[#f8f5f2] dark:bg-background overflow-hidden px-2">
@@ -531,10 +499,14 @@ export default function ResumeBuilderPage() {
                     onClick={completeResume}
                     className="bg-purple-600 text-white hover:bg-purple-500"
                   >
+                    <BiSolidSave/>
                     Save
                   </Button>
 
-                  <Button variant="outline" onClick={handleDownloadPDF}>PDF</Button>
+                  <Button variant="outline" onClick={handleDownloadPDF}>
+                    <MdOutlineFileDownload/>
+                    PDF
+                  </Button>
                 </div>
 
                 <Button
@@ -559,7 +531,7 @@ export default function ResumeBuilderPage() {
 
                 <CardContent className="overflow-hidden max-h-[600px] ">
                   <div className="flex justify-center items-center w-full">
-                    <div className={`origin-top scale-[0.49] w-full`}>
+                    <div className={`origin-top w-full ${console.log(FORM_STEPS[currentStep]?.id),FORM_STEPS[currentStep]?.id === "preview" ? "scale-[0.51]  " : "scale-[0.5]"} `}>
                       {currentTemplate?.find((template) => {
                         return template?.id === resumeData?.selectedTemplate;
                       })?.component || (

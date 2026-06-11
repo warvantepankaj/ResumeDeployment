@@ -37,7 +37,7 @@ export function CertificationForm({ data = [], onUpdate = () => {} }) {
     <div className="space-y-6">
       {/* Empty state */}
       {data.length === 0 && (
-        <Card className="bg-gray-100 shadow-md dark:bg-gray-800">
+        <Card className="bg-muted/30 shadow-md dark:bg-gray-800">
           <CardContent className="pt-6 text-center">
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               No Certificate added yet
@@ -57,7 +57,7 @@ export function CertificationForm({ data = [], onUpdate = () => {} }) {
       {data.map((certificate, index) => (
         <Card
           key={certificate.id}
-          className="bg-gray-100 dark:bg-gray-900 shadow-md rounded-2xl"
+          className="bg-[#fefaf5] dark:bg-gray-900 shadow-md rounded-2xl"
         >
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -88,7 +88,7 @@ export function CertificationForm({ data = [], onUpdate = () => {} }) {
                 }
                 placeholder="Certificate title"
                 required
-                className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+                className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-white"
               />
             </div>
 
@@ -100,7 +100,7 @@ export function CertificationForm({ data = [], onUpdate = () => {} }) {
                   updateCertificate(certificate.id, "description", e.target.value)
                 }
                 placeholder="Description of Certificate"
-                className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100"
+                className="bg-[#fefaf5] dark:bg-gray-800 text-gray-800 dark:text-gray-100"
               />
             </div>
           </CardContent>

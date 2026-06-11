@@ -68,7 +68,7 @@ export function B_WResume({ resumeData = {}}) {
 
       <div className="bg-white shadow-xl min-h-[1123px] min-w-[794px] flex border border-gray-300 dark:border-gray-600">
         {/* ================= LEFT SIDEBAR ================= */}
-        <div className="w-[35%] bg-[#374151] text-gray-200 dark:text-gray-300 p-4 flex flex-col gap-6 ">
+        <div className="w-[35%] bg-[#374151] text-gray-200 dark:text-gray-300 p-4 flex flex-col gap-6">
           {/* Profile Image */}
           <div className="flex justify-center text-center">
             <img
