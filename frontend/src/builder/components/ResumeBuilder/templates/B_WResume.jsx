@@ -119,13 +119,13 @@ export function B_WResume({ resumeData = {}}) {
               {personalInfo.linkedin && (
                 <div className="flex gap-2 items-center">
                   <RiLinkedinBoxFill />
-                  <p className="text-sm cursor-pointer">LinkedIn</p>
+                  <p className="text-sm">LinkedIn</p>
                 </div>
               )}
               {personalInfo.website && (
                 <div className="flex gap-2 items-center">
                   <CiLink />
-                  <p className="text-sm cursor-pointer">Portfolio</p>
+                  <p className="text-sm">Portfolio</p>
                 </div>
               )}
             </div>
@@ -360,7 +360,7 @@ export function B_WResume({ resumeData = {}}) {
                   <div className="absolute left-[-6px] top-1 w-3 h-3 bg-gray-600 rounded-full"></div>
 
                   <div className="flex items-center justify-between">
-                    <p className="text-[13.5px] font-semibold text-gray-600">
+                    <p className="text-[13.5px] font-semibold text-gray-700">
                       {achivement.title}
                     </p>
                   </div>

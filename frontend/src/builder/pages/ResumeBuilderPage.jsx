@@ -27,13 +27,8 @@ import { PurpleResume } from "@/builder/components/ResumeBuilder/templates/Purpl
 import { B_WResume } from "@/builder/components/ResumeBuilder/templates/B_WResume.jsx";
 import { AchivementForm } from "@/builder/components/ResumeBuilder/Forms/AchivementForm.jsx";
 import { CertificationForm } from "@/builder/components/ResumeBuilder/Forms/CertificationsForm.jsx";
-import { useToast } from "@/builder/hooks/use-toast";
-import {
-  retrieveExtractedData,
-  mergeResumeData,
-} from "@/builder/lib/data-transfer";
+import {retrieveExtractedData, mergeResumeData,} from "@/builder/lib/data-transfer";
 import axios from "axios";
-import { ThemeToggle } from "@/builder/components/theme-toggle";
 import { ClassicResume } from "../components/ResumeBuilder/templates/ClasscicResume";
 
 const FORM_STEPS = [
@@ -474,7 +469,7 @@ export default function ResumeBuilderPage() {
                     <div
                       className={
                         FORM_STEPS[currentStep]?.id === "preview"
-                          ? "scale-[0.38] min-w-[84%] max-w-[84%] origin-top"
+                          ? "scale-[0.41] min-w-[84%] max-w-[84%] origin-top"
                           : ""
                       }
                     >
@@ -531,7 +526,7 @@ export default function ResumeBuilderPage() {
 
                 <CardContent className="overflow-hidden max-h-[600px] ">
                   <div className="flex justify-center items-center w-full">
-                    <div className={`origin-top w-full ${console.log(FORM_STEPS[currentStep]?.id),FORM_STEPS[currentStep]?.id === "preview" ? "scale-[0.51]  " : "scale-[0.5]"} `}>
+                    <div className={`origin-top scale-[0.51] w-full`}>
                       {currentTemplate?.find((template) => {
                         return template?.id === resumeData?.selectedTemplate;
                       })?.component || (
