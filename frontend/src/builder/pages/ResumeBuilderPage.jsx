@@ -30,6 +30,7 @@ import { CertificationForm } from "@/builder/components/ResumeBuilder/Forms/Cert
 import {retrieveExtractedData, mergeResumeData,} from "@/builder/lib/data-transfer";
 import axios from "axios";
 import { ClassicResume } from "../components/ResumeBuilder/templates/ClasscicResume";
+import { StandardBlueResume } from "../components/ResumeBuilder/templates/StandardBlueResume";
 
 const FORM_STEPS = [
   {
@@ -232,7 +233,7 @@ export default function ResumeBuilderPage() {
     },
     {
       id: "minimal",
-      component: <PurpleResume resumeData={resumeData} />,
+      component: <StandardBlueResume resumeData={resumeData} />,
     },
   ];
 
