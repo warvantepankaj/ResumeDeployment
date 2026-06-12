@@ -604,7 +604,7 @@ export function B_WResume({ resumeData = {} }) {
         </div>
 
         {/* ================= RIGHT CONTENT ================= */}
-        <div className="w-[68%] p-6 bg-gray-50 dark:bg-gray-300">
+        <div className="w-[68%] px-6 pt-5 bg-gray-50 dark:bg-gray-300">
           {/* Header */}
           <div className="mb-2">
             <h1 className="text-3xl font-bold text-gray-800">
