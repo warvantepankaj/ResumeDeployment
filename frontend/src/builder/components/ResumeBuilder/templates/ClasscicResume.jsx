@@ -246,6 +246,12 @@ export function ClassicResume({ resumeData = {} }) {
     });
   };
 
+  const getHref = (url) => {
+    if (!url) return "#";
+    const cleanUrl = url.replace(/^https?:\/\//, ""); // Remove existing protocol if present
+    return `https://${cleanUrl}`;
+  };
+
   // --- SKILLS LOGIC CHECK ---
   const techSkills = skills.technical || {};
   const isTechArray = Array.isArray(techSkills);
@@ -300,13 +306,25 @@ export function ClassicResume({ resumeData = {} }) {
               {personalInfo.linkedin && (
                 <div className="flex gap-1 items-center">
                   <FaLinkedin size={12} />
-                  <span>{personalInfo.linkedin}</span>
+                  <a
+                    href={getHref(personalInfo?.linkedin)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="cursor-pointer">LinkedIn</span>
+                  </a>
                 </div>
               )}
               {personalInfo.website && (
                 <div className="flex gap-1 items-center">
                   <IoLogoGithub size={12} />
-                  <span>{personalInfo.website}</span>
+                  <a
+                    href={getHref(personalInfo?.website)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="cursor-pointer">Portfolio</span>
+                  </a>
                 </div>
               )}
             </div>

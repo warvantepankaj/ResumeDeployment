@@ -124,7 +124,7 @@ export function PurpleResume({ resumeData = {}, compact = false, length = 0 }) {
                       href={getHref(personalInfo?.website)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#2A5DB0]   cursor-pointer"
+                      className="text-[#2A5DB0] cursor-pointer"
                     >
                       Portfolio
                     </a>
