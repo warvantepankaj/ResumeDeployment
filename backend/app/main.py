@@ -15,7 +15,12 @@ from app.score.controllers.auth_controller import router as auth_router
 from app.score.controllers.resume_controller import router as score_resume_router
 from app.score.controllers.score_controller import router as score_router
 
+import asyncio
+import sys
 
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+    
 settings = get_settings()
 
 

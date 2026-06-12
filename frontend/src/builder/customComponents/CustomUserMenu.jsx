@@ -18,7 +18,6 @@ export default function CustomUserMenu() {
       }
 
     }
-
      document.addEventListener("mousedown",handleOutsiteClick);
      return ()=>{
       document.removeEventListener("mousedown",handleOutsiteClick);

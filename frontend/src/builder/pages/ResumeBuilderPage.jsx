@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/builder/components/ui/Button.jsx";
 import {
   Card,
@@ -13,6 +13,8 @@ import { Eye, CheckCircle, EyeOff } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import { MdOutlineFileDownload } from "react-icons/md";
+import { BiSolidSave } from "react-icons/bi";
 
 import { PersonalInfoForm } from "@/builder/components/ResumeBuilder/Forms/PersonalInfoForm.jsx";
 import { ProfessionalSummaryForm } from "@/builder/components/ResumeBuilder/Forms/ProfessionalSummaryForm.jsx";
@@ -25,14 +27,10 @@ import { PurpleResume } from "@/builder/components/ResumeBuilder/templates/Purpl
 import { B_WResume } from "@/builder/components/ResumeBuilder/templates/B_WResume.jsx";
 import { AchivementForm } from "@/builder/components/ResumeBuilder/Forms/AchivementForm.jsx";
 import { CertificationForm } from "@/builder/components/ResumeBuilder/Forms/CertificationsForm.jsx";
-import { useToast } from "@/builder/hooks/use-toast";
-import {
-  retrieveExtractedData,
-  mergeResumeData,
-} from "@/builder/lib/data-transfer";
+import {retrieveExtractedData, mergeResumeData,} from "@/builder/lib/data-transfer";
 import axios from "axios";
-import { ThemeToggle } from "@/builder/components/theme-toggle";
 import { ClassicResume } from "../components/ResumeBuilder/templates/ClasscicResume";
+import { StandardBlueResume } from "../components/ResumeBuilder/templates/StandardBlueResume";
 
 const FORM_STEPS = [
   {
@@ -80,6 +78,8 @@ const FORM_STEPS = [
 ];
 
 export default function ResumeBuilderPage() {
+  const scrollContainerRef = useRef(null);
+
   // const { toast } = useToast();
   const [showPreview, setShowPreview] = useState(false);
   const [currentStep, setCurrentStep] = useState();
@@ -161,7 +161,7 @@ export default function ResumeBuilderPage() {
     if (currentStep == 9) {
       setShowPreview(false);
     } else {
-      setShowPreview(showPreview);
+      setShowPreview(true);
     }
   }, [dataTransferred, toast, currentStep, setShowPreview]);
 
@@ -172,21 +172,25 @@ export default function ResumeBuilderPage() {
     }));
   };
 
-  // useEffect(() => {
-  //   if (resumeData) {
-  //     setCurrentStep(resumeData.currentStep ?? 0);
-  //     setShowPreview(resumeData.showPreview ?? false);
-  //   }
-  // }, []);
-
   const nextStep = () => {
-    if (currentStep < FORM_STEPS.length - 1) setCurrentStep(currentStep + 1);
-    // if (currentStep == 8) setShowPreview(false);
+    if (currentStep < FORM_STEPS.length - 1) {
+      setCurrentStep(currentStep + 1);
+      scrollContainerRef.current?.scrollTo(0, 0);
+    }
   };
+
+  useEffect(() => {
+  console.log(FORM_STEPS[currentStep]?.id,"hsbrfsuidhihd");
+}, [currentStep]);
 
   const prevStep = () => {
-    if (currentStep > 0) setCurrentStep(currentStep - 1);
+    if (currentStep > 0){
+      setCurrentStep(currentStep - 1);
+      scrollContainerRef.current?.scrollTo(0, 0);
+    }
   };
+
+  
 
   const completeResume = async () => {
     try {
@@ -229,7 +233,7 @@ export default function ResumeBuilderPage() {
     },
     {
       id: "minimal",
-      component: <PurpleResume resumeData={resumeData} />,
+      component: <StandardBlueResume resumeData={resumeData} />,
     },
   ];
 
@@ -316,6 +320,56 @@ export default function ResumeBuilderPage() {
     }
   };
 
+  const handleDownloadPDF = async () => {
+    const toastId = toast.loading("Generating PDF...");
+    try {
+      const resumeElement = document.getElementById("printable-resume-content");
+
+      if (!resumeElement) {
+        toast.error("Please go to Preview step first.", { id: toastId });
+        return;
+      }
+
+      // Convert all images to base64
+      const images = resumeElement.querySelectorAll("img");
+      await Promise.all(
+        Array.from(images).map(async (img) => {
+          if (!img.src || img.src.startsWith("data:")) return;
+          try {
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            const base64 = await new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result);
+              reader.readAsDataURL(blob);
+            });
+            img.src = base64;
+          } catch {
+            console.warn("Could not convert image:", img.src);
+          }
+        })
+      );
+
+      const response = await axios.post(
+        "http://localhost:8000/builder/resume/export/pdf",
+        { htmlContent: resumeElement.outerHTML },
+        { responseType: "blob" }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `resume_${resumeId}.pdf`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      toast.success("PDF downloaded!",{ id: toastId,});
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to generate PDF.", { id: toastId });
+    }
+  };
+
   return (
     <div className="h-screen bg-[#f8f5f2] dark:bg-background overflow-hidden px-2">
       <div className="container mx-auto mt-20 py-8">
@@ -339,15 +393,13 @@ export default function ResumeBuilderPage() {
         )}
 
         <div
-          className={`grid gap-4 ${
-            showPreview ? "lg:grid-cols-8" : "max-w-4xl mx-auto col-span-3"
-          }`}
+          className={`grid gap-4 ${showPreview ? "lg:grid-cols-8" : "max-w-4xl mx-auto col-span-3"
+            }`}
         >
           {
             <div
-              className={`flex flex-col h-[80vh] w-full ${
-                showPreview ? "col-span-4" : "col-span-8 mx-auto"
-              }`}
+              className={`flex flex-col h-[80vh] w-full ${showPreview ? "col-span-4" : "col-span-8 mx-auto"
+                }`}
             >
               {/* TOP (FIXED) */}
               <div className="flex-shrink-0">
@@ -359,12 +411,8 @@ export default function ResumeBuilderPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() =>
-                          currentStep === FORM_STEPS.length - 1
-                            ? setShowPreview(false)
-                            : setShowPreview(!showPreview)
-                        }
-                        className="bg-transparent "
+                        onClick={() => setShowPreview(!showPreview)}
+                        className="bg-transparent"
                       >
                         {showPreview ? (
                           <EyeOff className="h-4 w-4 mr-2" />
@@ -381,13 +429,16 @@ export default function ResumeBuilderPage() {
                   {FORM_STEPS.map((step, index) => (
                     <button
                       key={step.id}
-                      onClick={() => setCurrentStep(index)}
+                      onClick={() => {
+                        setCurrentStep(index)
+                        scrollContainerRef.current?.scrollTo(0, 0);
+                      }
+                      }
                       className={`px-2 py-1 rounded-md whitespace-nowrap text-sm transition
-                                 ${
-                                   currentStep === index
-                                     ? "bg-purple-600 text-white"
-                                     : "bg-muted text-muted-foreground hover:bg-purple-300"
-                                 }`}
+                                 ${currentStep === index
+                          ? "bg-purple-600 text-white"
+                          : "bg-muted text-muted-foreground hover:bg-purple-300"
+                        }`}
                     >
                       {step.title}
                     </button>
@@ -396,11 +447,11 @@ export default function ResumeBuilderPage() {
               </div>
 
               <div
-                className={`flex-1 mt-6 pr-2 ${
-                  FORM_STEPS[currentStep]?.id === "preview"
-                    ? "overflow-hidden w-auto flex justify-center items-start"
-                    : "overflow-y-auto"
-                }`}
+                ref={scrollContainerRef}
+                className={`flex-1 mt-6 pr-2 ${FORM_STEPS[currentStep]?.id === "preview"
+                  ? "overflow-hidden w-auto flex justify-center items-start"
+                  : "overflow-y-auto"
+                  }`}
               >
                 <Card
                   className={
@@ -419,7 +470,7 @@ export default function ResumeBuilderPage() {
                     <div
                       className={
                         FORM_STEPS[currentStep]?.id === "preview"
-                          ? "scale-[0.51] min-w-[84%] max-w-[84%] origin-top"
+                          ? "scale-[0.41] min-w-[84%] max-w-[84%] origin-top"
                           : ""
                       }
                     >
@@ -444,10 +495,14 @@ export default function ResumeBuilderPage() {
                     onClick={completeResume}
                     className="bg-purple-600 text-white hover:bg-purple-500"
                   >
+                    <BiSolidSave/>
                     Save
                   </Button>
 
-                  <Button variant="outline">PDF</Button>
+                  <Button variant="outline" onClick={handleDownloadPDF}>
+                    <MdOutlineFileDownload/>
+                    PDF
+                  </Button>
                 </div>
 
                 <Button
@@ -467,20 +522,20 @@ export default function ResumeBuilderPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg">Live Preview</CardTitle>
-                  <CardDescription>{}</CardDescription>
+                  <CardDescription>{ }</CardDescription>
                 </CardHeader>
 
                 <CardContent className="overflow-hidden max-h-[600px] ">
                   <div className="flex justify-center items-center w-full">
-                    <div className="origin-top scale-[0.49] w-full">
+                    <div className={`origin-top scale-[0.51] w-full`}>
                       {currentTemplate?.find((template) => {
                         return template?.id === resumeData?.selectedTemplate;
                       })?.component || (
-                        <PurpleResume
-                          resumeData={resumeData}
-                          length={progress}
-                        />
-                      )}
+                          <PurpleResume
+                            resumeData={resumeData}
+                            length={progress}
+                          />
+                        )}
                     </div>
                   </div>
                 </CardContent>
@@ -491,4 +546,6 @@ export default function ResumeBuilderPage() {
       </div>
     </div>
   );
+  
 }
+
