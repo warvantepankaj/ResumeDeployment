@@ -263,7 +263,7 @@ export function ClassicResume({ resumeData = {} }) {
 
   return (
     <div id="resume-preview" className="flex justify-center items-center">
-      <div className="bg-[#faf8f6] shadow-2xl border border-gray-200 dark:border-gray-700 dark:bg-gray-300  w-auto h-auto ">
+      <div className="bg-[#fcfaf8] shadow-2xl border border-gray-200 dark:border-gray-700 dark:bg-gray-300  w-auto h-auto ">
         <div
           id="printable-resume-content"
           className=" text-black min-h-[1123px] min-w-[794px]  px-6 py-4 font-[ui-serif] w-auto leading-tight dark:bg-gray-300"
