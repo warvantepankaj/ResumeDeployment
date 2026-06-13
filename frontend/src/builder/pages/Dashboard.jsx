@@ -50,7 +50,7 @@ export default function Dashboard() {
   // ✅ Delete Resume
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/builder/resume/${id}`);
+      await axios.delete(`https://resume-deployment-frontend.vercel.app/builder/resume/${id}`);
       setResumes(resumes.filter((r) => r.id !== id));
     } catch (err) {
       console.error(err);
