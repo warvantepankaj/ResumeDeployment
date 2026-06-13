@@ -33,7 +33,7 @@ export default function Dashboard() {
       setTimeout(async () => {
         try {
           const res = await axios.get(
-            `https://resume-deployment-frontend.vercel.app/builder/resume/${user.id}`,
+            `${import.meta.env.VITE_BUILDER_BASE_URL}/builder/resume/${user.id}`,
           );
           setResumes(res.data);
         } catch (err) {
@@ -50,7 +50,7 @@ export default function Dashboard() {
   // ✅ Delete Resume
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://resume-deployment-frontend.vercel.app/builder/resume/${id}`);
+      await axios.delete(`${import.meta.env.VITE_BUILDER_BASE_URL}/builder/resume/${id}`);
       setResumes(resumes.filter((r) => r.id !== id));
     } catch (err) {
       console.error(err);

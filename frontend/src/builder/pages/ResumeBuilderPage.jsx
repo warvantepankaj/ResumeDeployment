@@ -121,7 +121,7 @@ export default function ResumeBuilderPage() {
     const fetchResume = async () => {
       try {
         const res = await axios.get(
-          `https://resume-deployment-frontend.vercel.app/builder/resume/single/${resumeId}`,
+          `${import.meta.env.VITE_BUILDER_BASE_URL}/builder/resume/single/${resumeId}`,
         );
 
         setResumeData(res.data.data); // backend structure
@@ -194,7 +194,7 @@ export default function ResumeBuilderPage() {
 
   const completeResume = async () => {
     try {
-      await axios.put(`https://resume-deployment-frontend.vercel.app/builder/resume/${resumeId}`, {
+      await axios.put(`${import.meta.env.VITE_BUILDER_BASE_URL}/builder/resume/${resumeId}`, {
         data: resumeData,
         status: "completed",
         progress: 100,
@@ -351,7 +351,7 @@ export default function ResumeBuilderPage() {
       );
 
       const response = await axios.post(
-        "https://resume-deployment-frontend.vercel.app/builder/resume/export/pdf",
+        `${import.meta.env.VITE_BUILDER_BASE_URL}/builder/resume/export/pdf`,
         { htmlContent: resumeElement.outerHTML },
         { responseType: "blob" }
       );

@@ -27,7 +27,7 @@ const Navbar = () => {
 
     const saveUser = async () => {
       try {
-        await axios.post("https://resume-deployment-frontend.vercel.app/builder/user", {
+        await axios.post(`${import.meta.env.VITE_BUILDER_BASE_URL}/builder/user`, {
           id: user.id,
           email: user.primaryEmailAddress?.emailAddress,
           name: user.fullName,

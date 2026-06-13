@@ -14,7 +14,7 @@ const ResumeNameModal = ({ isOpen, onClose, onCreate }) => {
     if (!name.trim()) return;
 
     try {
-      const res = await axios.post("https://resume-deployment-frontend.vercel.app/builder/resume", {
+      const res = await axios.post(`${import.meta.env.VITE_BUILDER_BASE_URL}/builder/resume`, {
         title: name,
         userId: user?.id,
       });

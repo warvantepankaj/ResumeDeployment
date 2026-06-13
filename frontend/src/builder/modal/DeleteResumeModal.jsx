@@ -16,7 +16,7 @@ const DeleteResumeModal = ({ isOpen, onClose, id, resumeTitle, onDelete }) => {
     try {
       setLoading(true);
 
-      await axios.delete(`https://resume-deployment-frontend.vercel.app/builder/resume/${id}`);
+      await axios.delete(`${import.meta.env.VITE_BUILDER_BASE_URL}/builder/resume/${id}`);
 
       setInput("");
       onClose();
