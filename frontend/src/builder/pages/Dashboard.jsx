@@ -33,7 +33,7 @@ export default function Dashboard() {
       setTimeout(async () => {
         try {
           const res = await axios.get(
-            `http://127.0.0.1:8000/builder/resume/${user.id}`,
+            `https://resume-deployment-frontend.vercel.app/builder/resume/${user.id}`,
           );
           setResumes(res.data);
         } catch (err) {
